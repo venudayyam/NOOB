@@ -1,0 +1,392 @@
+
+#define clock   120-(7*ROBO)
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<windows.h>
+#include<mmsystem.h>
+int add;
+int  gxx,gyy,gs,ge;
+char flip;
+char rr;
+  char kk;
+  int tail=0;
+  int rtail=0,ltail=0,ttail=0 , btail=0;
+  int ROBO;
+
+
+
+	void delay (long x){
+		long i;
+long p,q;
+		for (i=0;i<x;i++)
+		{
+			for (q=0;q<2000;q++)
+			for (p=0;p<200;p++);
+		}
+	}
+
+
+	kill()
+	{
+char m;int i,j;
+  for(i=10;i<=84;i++)
+    {
+        for(j=6;j<24;j++) {
+    gotoxy(i,j);printf(" ");  }
+    }
+	    textbackground(15);
+	    textcolor(12);
+  gotoxy(38,14);
+    printf ("Game over....!!! ");
+    if (tail==0)
+    {
+        gotoxy(65,27);
+     printf ("Score --  %d", tail);
+    }
+
+     gotoxy(23,16);
+
+    printf ("Press Any key Twice to Start  or 'N'  To Exit.....!!!");
+
+ textcolor(9);
+
+
+	}
+int ob_x,ob_y;
+
+int obi_x; int  obi_y;
+
+
+objects(int x , int y)
+{
+
+    ob_x=x;
+    ob_y=y;
+    gotoxy(x ,y );  // x==> 10  to   84
+    printf("%c",2);
+    gotoxy(gxx,gyy);
+
+}
+
+
+frame ()
+{
+    int i,j;
+        printf("\n\n\n");
+    printf("\n\t#");
+    for(j=0;j<15;j++)
+    printf("#####");
+    printf("#");
+      for(j=0;j<18;j++)
+        framemid(j);
+   printf("\n\t#");
+    for(j=0;j<15;j++)
+    printf("#####");
+    printf("#");
+}
+framemid(int h)
+{
+      int i,j;
+          printf("\n");
+    printf("       \b\b%c  #",h+65);
+    for (i=0;i<75;i++)
+         printf(" ");
+     printf("#");
+}
+
+tailfun(char z)
+{
+    if(z=='r')
+    {
+     rtail+=1;
+     right(wherex(),wherey());
+        right(wherex()-1,wherey());
+
+    }
+      if(z=='l')
+    {
+
+    }
+      if(z=='b')
+    {
+
+    }
+      if(z=='t')
+    {
+
+    }
+
+ltail+=1;
+btail+=1;
+ttail+=1;
+
+}
+
+des(char z)
+{
+    int te,te1;
+     PlaySoundA((HPSTR) "D:\\PARADIGMS\\Programs\\UPDATED\\Snake Game\\sound.wav" , NULL, SND_FILENAME | SND_ASYNC);
+    te=wherex();
+       te1=wherey();
+   tail+=1;
+     gotoxy(65,27);
+     printf ("Score --  %d", tail);
+     gotoxy(te,te1);
+ //  tailfun(z);
+     int  j=0; int b=0;
+    j=rand()%74;   //  j=0 to 74
+    obi_x=   10+ j;
+       b=rand()%17; //  b= 0 to 17
+    obi_y= 6 +b  ; //  23
+    if (obi_x==gxx &&  obi_y==gyy )
+    {
+            j=rand()%74;   //  j=0 to 74
+    obi_x=   10+ j;
+       b=rand()%17; //  b= 0 to 17
+    obi_y= 6 +b  ; //  23
+    }
+
+}
+
+right(gx, gy)
+{
+    int i;
+    gotoxy(gx,gy);
+while (gxx>=10 && gxx<=(84) && gyy>=6 && gyy<=23 )
+    {
+   //    for(i=0;i<rtail;i++)
+   // printf("");
+         printf("%c",16);
+
+                delay(clock); ////97  out
+      //            for(i=0;i<rtail;i++)
+                 printf("\b ");
+       //          printf ("\b ");
+  //   for(i=0;i<=rtail;i++)
+ {  gxx=wherex(); }  gyy=wherey();
+
+if (ob_x==wherex()  &&  ob_y== wherey())
+        {  des('r');  objects(obi_x,obi_y);  }
+
+      if  (kbhit())  {   flip=getch(); ; reps();  }
+
+   }
+
+}
+
+
+left (gx,gy)
+{
+    int i;
+      gotoxy(gx,gy);
+
+while (gxx>=10&& gxx<=84 && gyy>=6 && gyy<=23 )
+    {
+             for(i=0;i<ltail;i++)
+              printf("%c" ,17);
+              printf ("%c" ,17 );
+                delay(clock); ////97  out
+                   printf("\b \b\b");
+                      for(i=0;i<ltail;i++)
+                          printf("\b");
+                 //       getch();
+              // printf("");
+                  gxx=wherex();  gyy=wherey();
+if (ob_x==wherex()  &&  ob_y== wherey() )
+        { des('l'); objects(obi_x,obi_y);  }
+
+if  (kbhit())  {   flip=getch(); ; reps();  }
+    }
+
+        }
+
+
+bottom (a,gy)
+{
+    btail=0;
+    int m;int i;
+        gotoxy(a,gy);
+        while (gxx>=10 && gxx<=84 && gyy>=6 && gyy<=23 )
+    {
+         printf("%c" ,31);
+         m=wherey();
+if (m-1!=5)
+{
+
+             gotoxy(a,m);//-(strlen(string)));
+             printf("%c" ,31);
+}
+    delay(clock+40); ////97  out
+       printf("\b ");
+   gotoxy(a,m+1);
+///////////////////////
+
+        gxx=wherex();  gyy=wherey();
+//////////////////////////////////////
+if (ob_x==wherex()  &&  ob_y== wherey() )
+            { des('b'); objects(obi_x,obi_y);  }
+
+
+      if  (kbhit())  {   flip=getch(); reps();  }
+        //  gotoxy(a,gy+i);
+
+    }
+}
+
+
+top (a,gy)
+{
+int m;
+        gotoxy(a,gy);
+            while (gxx>=10 && gxx<=84 && gyy>=6 && gyy<=23 )
+    {
+    printf("%c" , 30 );
+         m=wherey();
+    delay(clock+40); ////97  out
+    printf("\b ");
+   gotoxy(a,m-1);
+    gxx=wherex();  gyy=wherey();
+if (ob_x==wherex()  &&  ob_y== wherey() )
+            {
+                des('t'); objects(obi_x,obi_y);  }
+
+
+      if  (kbhit())  {   flip=getch(); ; reps();  }
+
+}
+ }
+
+
+
+ int climax()
+ {
+     int t,n;
+
+      kk=getch();
+     if (kk=='n'  ||  kk=='N')
+     {
+
+ gotoxy(38,14);
+ printf ("                                          ");
+           gotoxy(23,16);  printf ("                                                           ");
+ gotoxy(36,14);
+delay(50);
+ textcolor(2);
+printf("Thank You For Playing.....  ");
+textcolor(9);
+getch();
+gotoxy(10,31);
+         return 0 ;
+     }
+     else
+     {
+         getch();
+         gotoxy(38,14); printf ("                                          ");
+           gotoxy(23,16);  printf ("                                                      ");
+            return 1;
+     }
+
+ }
+
+
+
+  reps()
+  {
+      char mold;
+      char m=flip;
+        if (m=='p'  ||  m=='P' )
+        {
+                    gotoxy(wherex(),wherey());
+        printf ("@\b");
+            getch();
+        }
+
+        switch(m)
+        {
+            case '6' : if ( rr != '4')
+                                {
+                                    rr='6'  ;  right(gxx,gyy);
+                                }
+                                break;
+            case '4' :     if ( rr != '6')
+                                {   rr='4'  ; left(gxx,gyy);   }
+                                        break;
+                case '8' :   if ( rr != '2')
+                                {      rr='8'  ;  top(gxx,gyy);  }
+                                        break;
+                    case '2' : if ( rr != '8')
+                                {     rr='2'  ;
+                                        bottom(gxx,gyy);  }
+                                        break;
+ default  : break;
+        }
+
+}
+
+
+
+void main ()
+{
+    int i;
+    char yt;
+    long j;
+int muc;
+textbackground(15);
+ textcolor(9);
+    frame();
+     gotoxy(16,27);
+     printf(" Move right -- 6\t     Move left  -- 4");
+      gotoxy(16,29);
+     printf(" Move up    -- 8\t     Move down  -- 2");
+     gotoxy(65,29);
+     printf ("Pause --  P");
+
+      gotoxy(65,27);
+ gotoxy(100,5);
+      printf ("Set  difficulty  1-12  :  "); muc=wherex();
+      scanf("%d",&ROBO);
+       gotoxy(muc,5);
+    printf("\b\b    ");
+    gotoxy(30,14);
+textcolor(2);
+    printf ("Press any key to start.....!!!");
+ textcolor(9);
+      yt=getch();
+    printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b \b\b\b\b\b\b\b\b\b\b\b\b\b\b                                       ");
+    int m=0;
+hulk:
+
+gxx=10;  gyy=6;  rr='5';  flip='6';
+int t,n;
+objects(30,18);
+reps();
+
+
+
+kill();
+m= climax();
+if(m==1)
+{
+    gotoxy(65,27);
+    printf("                                     ");
+     gotoxy(100,5);
+     gotoxy(100,5);
+      printf ("Set  difficulty  1-12  :  "); muc=wherex();
+      scanf("%d",&ROBO);
+       gotoxy(muc,5);
+           printf("\b\b    ");
+             gotoxy(30,14);
+textcolor(2);
+    printf ("Press any key to start.....!!!");
+getch();
+ gotoxy(30,wherey());
+    printf ("                                                  ");
+    textcolor(9);
+     tail=0;
+     rtail=0; ltail=0; ttail=0; btail=0;
+    goto hulk;
+}
+
+}
